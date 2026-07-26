@@ -2,7 +2,7 @@
 
 > A cross-platform cloud storage aggregator: one harmonized view, copy/replicate/dedupe across providers, and cost-aware provider comparison.
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-0.2.0-blue)
 
 ## Overview
 
@@ -27,6 +27,7 @@ competitive baseline, ranked feature backlog, and phased roadmap this project fo
 - [ ] Duplicate detection with cost-aware "keep cheapest" recommendation
 - [ ] Cost analysis dashboard (usage vs. subscription cost, savings suggestions)
 - [ ] Provider discovery/comparison tool (sovereignty, encryption, price, free tier)
+- [x] Backend API stub (`/health`) with Docker deployment (`setup.sh`/`update.sh`)
 
 ## Requirements
 
@@ -43,12 +44,19 @@ flutter pub get
 flutter run -d macos   # or windows / chrome / linux
 ```
 
-Backend services are not yet implemented — see [`backend/README.md`](backend/README.md)
-for the planned design. Once a backend exists, see `setup.sh` for first-run deployment.
+Backend (Docker, Linux):
+
+```bash
+cd backend
+./setup.sh   # first run
+```
+
+See [`backend/README.md`](backend/README.md) — only a `/health` stub today, the real
+services are planned per `docs/PLAN.md`.
 
 ## Update
 
-See `update.sh` (added once the backend service exists to deploy).
+Backend: `cd backend && ./update.sh`.
 
 ## Configuration
 

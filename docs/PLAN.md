@@ -85,6 +85,24 @@ builds add a system-tray/menu-bar background process that runs the local rclone-
 - *Security service* — share-link exposure audits, anomaly/ransomware-pattern detection over
   metadata deltas.
 
+**Deployment target:** self-hosted on the owner's TrueNAS box, not a third-party cloud host —
+consistent with the rest of the parabyte-ca homelab (AutoRrent, Francine, The Menu, etc.).
+Backend services run as Docker containers there (see `backend/setup.sh`/`update.sh`, port
+`8181` reserved in `dev-sop/ports.md`). The webapp and any backend API endpoints that need
+external access are exposed via a **Cloudflare Tunnel** rather than direct port-forwarding —
+the same pattern already used for other homelab services (e.g. `menu.moot.es`). This
+actually improves the cloud-relay trust story from the "Sync/replication model" tradeoff
+above: the OAuth token vault lives on hardware the user themselves controls, not a
+third-party SaaS vendor's infrastructure, which meaningfully lowers the stakes of the
+"biggest trust/liability surface" concern called out there. Practical implications:
+- No public cloud infra cost/ops burden for the backend in early phases.
+- The Flutter web build needs a place to be served — either a static file host alongside the
+  API (nginx, matching the `website-lantix`/`website-postnorth` pattern) or served directly
+  by the backend, fronted by its own Cloudflare Tunnel hostname.
+- Availability is bounded by the homelab's own uptime (no multi-region failover) — acceptable
+  for the individual-power-user MVP target, worth revisiting only if/when this grows beyond
+  a single self-hosted user base.
+
 ---
 
 ## Core Features (as requested)
