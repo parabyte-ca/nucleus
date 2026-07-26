@@ -1,8 +1,10 @@
-# Nucleus Backend (planned)
+# Nucleus Backend
 
-Not implemented yet. This directory is a placeholder for the services described in
-[`../docs/PLAN.md`](../docs/PLAN.md) under "Recommended Architecture", needed starting
-Phase 1 (harmonized index, provider catalog) and Phase 2 (cloud-relay mode).
+A minimal FastAPI stub (`/health` only) — the real services described in
+[`../docs/PLAN.md`](../docs/PLAN.md) under "Recommended Architecture" (account/token vault,
+metadata index, relay orchestrator, provider catalog, security service) are not implemented
+yet. This exists so the Docker/setup/update workflow is real and testable before those
+services land, per parabyte-ca dev-sop.
 
 ## Planned services
 
@@ -16,12 +18,20 @@ Phase 1 (harmonized index, provider catalog) and Phase 2 (cloud-relay mode).
 - **Security service** — public share-link exposure audits, ransomware-pattern anomaly
   detection over metadata deltas.
 
-## Planned port
+## Running locally
 
-Reserved: **8181** (`nucleus-api`) — see `dev-sop/ports.md`. Not yet running.
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+curl http://127.0.0.1:8000/health
+```
 
-## Conventions
+## Docker / Linux deployment
 
-Once implemented, this service follows parabyte-ca dev-sop: `Dockerfile` at its own root,
-`setup.sh`/`update.sh` for first-run and incremental deploys, SemVer tracked in its own
-`VERSION` file, changes logged in the root `CHANGELOG.md`.
+```bash
+./setup.sh   # first run: builds the image and starts the container
+./update.sh  # subsequent deploys: pulls latest, rebuilds, restarts
+```
+
+Runs on port **8181** (see `dev-sop/ports.md`), proxied to container port 8000.
