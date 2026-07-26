@@ -34,4 +34,7 @@ curl http://127.0.0.1:8000/health
 ./update.sh  # subsequent deploys: pulls latest, rebuilds, restarts
 ```
 
-Runs on port **8181** (see `dev-sop/ports.md`), proxied to container port 8000.
+Runs on port **8181** (see `dev-sop/ports.md`), proxied to container port 8000. Deployment
+target is the homelab TrueNAS box; external access (if/when needed) goes through a
+**Cloudflare Tunnel** rather than forwarding the port directly, matching the pattern used by
+other parabyte-ca homelab services (e.g. `menu.moot.es`).
