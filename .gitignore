@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Backend (future Node/Python services)
+backend/**/node_modules/
+backend/**/__pycache__/
+backend/**/.venv/
+backend/**/*.pyc
+
+# Env / secrets
+.env
+.env.*
+*.local
+
+# Editor
+.vscode/
+*.swp
